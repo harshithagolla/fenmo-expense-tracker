@@ -33,8 +33,8 @@ def fetch_expenses(category=None, sort=None):
         res.raise_for_status()
         return res.json()
 
-    except Exception as e:
-        st.error("Failed to fetch expenses.")
+    except Exception:
+        st.error("Could not load expenses. Please try again.")
         return []
 
 
@@ -90,8 +90,15 @@ with st.form("expense_form", clear_on_submit=True):
 
     if submitted:
 
-        if not description.strip():
+        if amount <= 0:
+            st.warning("Amount must be greater than 0.")
+
+        elif not description.strip():
             st.warning("Description is required.")
+
+        elif not date:
+            st.warning("Date is required.")
+
         else:
 
             payload = {
@@ -173,6 +180,19 @@ if expenses:
     total = float(df["amount"].sum())
 
     st.metric("Total", f"₹ {total:.2f}")
+
+    st.subheader("📊 Summary by Category")
+
+    summary = (
+        df.groupby("category")["amount"]
+        .sum()
+        .reset_index()
+    )
+
+    summary.columns = ["Category", "Total Amount"]
+
+    st.table(summary)
+
 
 else:
     st.info("No expenses found.")

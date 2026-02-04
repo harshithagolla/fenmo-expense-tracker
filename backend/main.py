@@ -52,9 +52,9 @@ Base.metadata.create_all(bind=engine)
 # ------------------ SCHEMAS ------------------
 
 class ExpenseCreate(BaseModel):
-    amount: Decimal = Field(..., gt=0)
-    category: str
-    description: str
+    amount: Decimal = Field(..., gt=0, description="Must be positive")
+    category: str = Field(..., min_length=1)
+    description: str = Field(..., min_length=1)
     date: date
 
 
