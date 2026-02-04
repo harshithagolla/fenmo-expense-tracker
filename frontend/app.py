@@ -5,7 +5,7 @@ import pandas as pd
 
 # ---------------- CONFIG ----------------
 
-API_BASE_URL = "http://127.0.0.1:8000"  # Change after deployment
+API_BASE_URL = "https://fenmo-expense-tracker.onrender.com"
 
 st.set_page_config(page_title="Expense Tracker", layout="centered")
 
@@ -47,7 +47,6 @@ def create_expense(data):
     headers = {
         "X-Request-ID": st.session_state.request_id
     }
-
 
     try:
         res = requests.post(
@@ -119,7 +118,6 @@ with st.form("expense_form", clear_on_submit=True):
                     del st.session_state["request_id"]
 
 
-
 st.divider()
 
 
@@ -175,7 +173,6 @@ if expenses:
 
     # Replace invalid values with 0
     df["amount"] = df["amount"].fillna(0.0)
-
 
     total = float(df["amount"].sum())
 
