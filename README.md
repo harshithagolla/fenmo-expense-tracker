@@ -100,6 +100,15 @@ These were consciously excluded to focus on core system behavior and stability.
 
 ---
 
+## Future Improvements
+
+- Add user authentication and multi-user support
+- Migrate to PostgreSQL for scalability
+- Add pagination and indexing
+- Introduce background jobs for reporting
+- Improve monitoring and logging
+
+
 ## 🏃 Run Locally
 
 ### Backend
